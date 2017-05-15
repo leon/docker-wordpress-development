@@ -1,0 +1,29 @@
+{
+    "name": "wec360/wordpress-development",
+    "authors": [
+        {
+            "name": "Leon Radley",
+            "email": "leon@wec360.se"
+        }
+    ],
+    "repositories": [
+      {
+        "type": "composer",
+        "url": "https://wpackagist.org"
+      }
+    ],
+    "require": {
+      "php": ">=7.0",
+      "johnpbloch/wordpress": ">=4.6",
+      "wpackagist-plugin/advanced-custom-fields": ">=4.4",
+      "wpackagist-plugin/codepress-admin-columns": ">=2.5"
+    },
+    "extra": {
+      "wordpress-install-dir": "wp"
+    },
+    "autoload": {
+        "psr-0": {
+            "Theme": "src/"
+        }
+    }
+}

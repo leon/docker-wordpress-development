@@ -1,0 +1,38 @@
+version: "2"
+
+volumes:
+  mysql:
+    driver: local
+  wordpress:
+    driver: local
+
+services:
+  mysql:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 42
+
+  wordpress:
+    image: wec360/wordpress-development-composer
+    ports:
+      - "9000:9000"
+    links:
+      - mysql
+    volumes:
+      - ./:/var/www/html/
+    environment:
+      WORDPRESS_DB_PASSWORD: 42
+
+  nginx:
+    image: wec360/wordpress-development-composer-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    links:
+      - wordpress
+    volumes_from:
+      - wordpress
