@@ -3,7 +3,7 @@ set -eo pipefail
 
 # Pull new versions of deps
 docker pull nginx:mainline-alpine
-docker pull wordpress:4.7-php7.0-fpm
+docker pull wordpress:4.8-php7.1-fpm
 docker pull php:7-fpm
 
 # Build wordpress image
