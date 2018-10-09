@@ -23,7 +23,7 @@ services:
     links:
       - mysql
     volumes:
-      - wordpress-data:/var/www/html/wp-content
+      - wordpress:/var/www/html/wp-content
       - .:/var/www/html/wp-content/themes/mytheme
     environment:
       WORDPRESS_DB_PASSWORD: 42

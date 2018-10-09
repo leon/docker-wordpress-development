@@ -1,4 +1,4 @@
-FROM wordpress:4.8-php7.1-fpm
+FROM wordpress:4.9-php7.2-fpm
 
 # Set timezone
 RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
@@ -7,12 +7,12 @@ RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractiv
 RUN apt-get update && apt-get install -y unzip
 
 # Install X-Debug for php 7
-ENV XDEBUG_VERSION 2.5.5
-ENV XDEBUG_SHA1 9a9d616e38e8dc7a412a1ff3d36f86dacbba2e4d
+ENV XDEBUG_VERSION 2.6.1
+ENV XDEBUG_SHA256 dae691d6c052073b886e0c6e1306a707bca9fd18a1e3485384ef6c4aacf1bd77
 
 RUN set -x \
 	&& curl -SL "http://www.xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz" -o xdebug.tgz \
-	&& echo "$XDEBUG_SHA1 xdebug.tgz" | sha1sum -c - \
+	&& echo "$XDEBUG_SHA256 xdebug.tgz" | sha256sum -c - \
 	&& mkdir -p /usr/src/xdebug \
 	&& tar -xf xdebug.tgz -C /usr/src/xdebug --strip-components=1 \
 	&& rm xdebug.* \
@@ -28,7 +28,6 @@ RUN apt-get update && \
 	apt-get install -y libcurl4-gnutls-dev && docker-php-ext-configure curl && docker-php-ext-install curl && \
 	apt-get install -y zlib1g-dev libicu-dev g++ && docker-php-ext-configure intl && docker-php-ext-install intl && \
 	apt-get install -y libxml++2.6-dev && docker-php-ext-install xml && \
-	apt-get install -y libmcrypt-dev && docker-php-ext-install mcrypt && \
 	docker-php-ext-install json && \
 	docker-php-ext-install mbstring && \
 	docker-php-ext-install soap && \
