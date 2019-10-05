@@ -43,6 +43,10 @@ you can now use Navicats data transfer functionality to copy a existing db into 
 # Development
 to update to latest versions of wordpress and nginx run update script
 
+get new version of xdebug
+go to `https://xdebug.org/download` and download sources for the php version we want to support
+also copy the sha 256 hash to add to the Dockerfile for wordpress and composer-wordpress
+
 ```
 ./update.sh
 
