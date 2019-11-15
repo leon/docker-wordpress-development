@@ -1,4 +1,4 @@
-FROM wordpress:5.2-php7.2-fpm
+FROM wordpress:5.3-php7.3-fpm
 
 # Set timezone
 RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
@@ -7,8 +7,8 @@ RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractiv
 RUN apt-get update && apt-get install -y unzip
 
 # Install X-Debug for php 7
-ENV XDEBUG_VERSION 2.7.2
-ENV XDEBUG_SHA256 b0f3283aa185c23fcd0137c3aaa58554d330995ef7a3421e983e8d018b05a4a6
+ENV XDEBUG_VERSION 2.8.0
+ENV XDEBUG_SHA256 cb1d117ecbec7409a408cf24e59d92f7e3816fe8e2331dd0ffc3dce60228c264
 
 RUN set -x \
 	&& curl -SL "http://www.xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz" -o xdebug.tgz \
@@ -28,10 +28,10 @@ RUN apt-get update && \
 	apt-get install -y libcurl4-gnutls-dev && docker-php-ext-configure curl && docker-php-ext-install curl && \
 	apt-get install -y zlib1g-dev libicu-dev g++ && docker-php-ext-configure intl && docker-php-ext-install intl && \
 	apt-get install -y libxml++2.6-dev && docker-php-ext-install xml && \
+	apt-get install -y libzip-dev && docker-php-ext-install zip && \
 	docker-php-ext-install json && \
 	docker-php-ext-install mbstring && \
-	docker-php-ext-install soap && \
-	docker-php-ext-install zip
+	docker-php-ext-install soap
 
 VOLUME /var/www/html
 
