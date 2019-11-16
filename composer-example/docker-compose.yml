@@ -17,7 +17,7 @@ services:
       MYSQL_ROOT_PASSWORD: 42
 
   wordpress:
-    image: wec360/wordpress-development-composer
+    image: leon/wordpress-development-composer
     ports:
       - "9000:9000"
     links:
@@ -28,7 +28,7 @@ services:
       WORDPRESS_DB_PASSWORD: 42
 
   nginx:
-    image: wec360/wordpress-development-composer-nginx
+    image: leon/wordpress-development-composer-nginx
     ports:
       - "80:80"
       - "443:443"

@@ -7,16 +7,16 @@ docker pull wordpress:5.3-php7.3-fpm
 docker pull php:7.3-fpm
 
 # Build wordpress image
-docker build wordpress -t wec360/wordpress-development
-docker build nginx -t wec360/wordpress-development-nginx
+docker build wordpress -t leon/wordpress-development
+docker build nginx -t leon/wordpress-development-nginx
 
 # Build wordpress composer image
-docker build composer-wordpress -t wec360/wordpress-development-composer
-docker build composer-nginx -t wec360/wordpress-development-composer-nginx
+docker build composer-wordpress -t leon/wordpress-development-composer
+docker build composer-nginx -t leon/wordpress-development-composer-nginx
 
 # Push to hub
-docker push wec360/wordpress-development:latest
-docker push wec360/wordpress-development-nginx:latest
+docker push leon/wordpress-development:latest
+docker push leon/wordpress-development-nginx:latest
 
-docker push wec360/wordpress-development-composer:latest
-docker push wec360/wordpress-development-composer-nginx:latest
+docker push leon/wordpress-development-composer:latest
+docker push leon/wordpress-development-composer-nginx:latest

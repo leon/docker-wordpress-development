@@ -1,9 +1,9 @@
 {
-    "name": "wec360/wordpress-development",
+    "name": "leon/wordpress-development",
     "authors": [
         {
             "name": "Leon Radley",
-            "email": "leon@wec360.se"
+            "email": "leon@leon.se"
         }
     ],
     "repositories": [

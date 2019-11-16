@@ -11,7 +11,7 @@ Both the vanilla and composer versions are running on php 7
 PHP has show all errors enables for simpler debugging
 
 ## XDebug
-Xdebug 2.4 is installed and configured to listen to port `9999` and the IDEKey `docker`
+Xdebug 2.8 is installed and configured to listen to port `9999` and the IDEKey `docker`
 
 
 # Usage
