@@ -1,4 +1,4 @@
-FROM wordpress:5.3-php7.3-fpm
+FROM wordpress:5.4-php7.3-fpm
 
 # Set timezone
 RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
