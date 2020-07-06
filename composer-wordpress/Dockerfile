@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 # Set timezone
 RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
@@ -7,11 +7,11 @@ RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractiv
 RUN apt-get update && apt-get install -y unzip
 
 # Install X-Debug for php 7
-ENV XDEBUG_VERSION 2.8.0
-ENV XDEBUG_SHA256 cb1d117ecbec7409a408cf24e59d92f7e3816fe8e2331dd0ffc3dce60228c264
+ENV XDEBUG_VERSION 2.9.6
+ENV XDEBUG_SHA256 ab03b6014706491b393aa8d520b5bdaf6735a2f1bc12a7772b2916ef2646e454
 
 RUN set -x \
-	&& curl -SL "http://www.xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz" -o xdebug.tgz \
+	&& curl -SL "https://www.xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz" -o xdebug.tgz \
 	&& echo "$XDEBUG_SHA256 xdebug.tgz" | sha256sum -c - \
 	&& mkdir -p /usr/src/xdebug \
 	&& tar -xf xdebug.tgz -C /usr/src/xdebug --strip-components=1 \
@@ -23,22 +23,28 @@ RUN set -x \
 	&& make install \
 	&& make clean
 
+# Maybe not needed any more?
+
 # Install extra php extensions
-RUN apt-get update && \
-	apt-get install -y libcurl4-gnutls-dev && docker-php-ext-configure curl && docker-php-ext-install curl && \
-	apt-get install -y zlib1g-dev libicu-dev g++ && docker-php-ext-configure intl && docker-php-ext-install intl && \
-	apt-get install -y libxml++2.6-dev && docker-php-ext-install xml && \
-	apt-get install -y libzip-dev && docker-php-ext-install zip && \
-	docker-php-ext-install json && \
-	docker-php-ext-install mbstring && \
-	docker-php-ext-install soap
+# RUN apt-get update && \
+# 	apt-get install -y libcurl4-gnutls-dev && docker-php-ext-configure curl && docker-php-ext-install curl && \
+# 	apt-get install -y zlib1g-dev libicu-dev g++ && docker-php-ext-configure intl && docker-php-ext-install intl && \
+# 	apt-get install -y libxml++2.6-dev && docker-php-ext-install xml && \
+# 	apt-get install -y libzip-dev && docker-php-ext-install zip && \
+# 	docker-php-ext-install json && \
+# 	docker-php-ext-install mbstring && \
+# 	docker-php-ext-install soap
 
 # Install php wordpress required extensions
 
 # install the PHP extensions we need
-RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev && rm -rf /var/lib/apt/lists/* \
-	&& docker-php-ext-configure gd --with-png-dir=/usr --with-jpeg-dir=/usr \
-	&& docker-php-ext-install gd mysqli opcache
+RUN apt-get update && apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+        libpng-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install mysqli opcache
 
 VOLUME /var/www/html
 
