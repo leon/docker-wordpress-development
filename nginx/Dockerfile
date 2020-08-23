@@ -1,4 +1,4 @@
-FROM nginx:mainline-alpine
+FROM nginx:mainline
 
 # Proxy conf
 COPY ./proxy_params /etc/nginx/proxy_params

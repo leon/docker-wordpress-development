@@ -2,7 +2,7 @@
 set -eo pipefail
 
 # Pull new versions of deps
-docker pull nginx:mainline-alpine
+docker pull nginx:mainline
 docker pull wordpress:php7.4-fpm
 docker pull php:7.4-fpm
 
