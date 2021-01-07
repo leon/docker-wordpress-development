@@ -7,8 +7,8 @@ RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractiv
 RUN apt-get update && apt-get install -y unzip
 
 # Install X-Debug for php 7
-ENV XDEBUG_VERSION 2.9.6
-ENV XDEBUG_SHA256 ab03b6014706491b393aa8d520b5bdaf6735a2f1bc12a7772b2916ef2646e454
+ENV XDEBUG_VERSION 3.0.2
+ENV XDEBUG_SHA256 096d46dec061341868d3e3933b977013a592e2e88992b2c0aba7fa52f87c4e17
 
 RUN set -x \
 	&& curl -SL "https://xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz" -o xdebug.tgz \
