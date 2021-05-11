@@ -1,0 +1,13 @@
+# Add files here to ignore them from prettier formatting
+
+/node_modules/
+/dist/
+/coverage/
+/.firebase/
+/.git/
+/.idea/
+/.vscode/
+/.yarn/
+
+/libs/view/shared/ui/assets/scene/draco/draco_decoder_gltf.js
+/libs/view/shared/ui/assets/scene/draco/draco_wasm_wrapper_gltf.js

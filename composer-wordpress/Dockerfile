@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8-fpm
 
 # Set timezone
 RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
@@ -6,12 +6,12 @@ RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractiv
 # Install unzip
 RUN apt-get update && apt-get install -y unzip
 
-# Install X-Debug for php 7
-ENV XDEBUG_VERSION 2.9.6
-ENV XDEBUG_SHA256 ab03b6014706491b393aa8d520b5bdaf6735a2f1bc12a7772b2916ef2646e454
+# Install X-Debug for php 8
+ENV XDEBUG_VERSION 3.0.4
+ENV XDEBUG_SHA256 b27290491f4634b0cd3badfc3a2be98fb1e3c0c3710a706724d8b195baad72af
 
 RUN set -x \
-	&& curl -SL "https://www.xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz" -o xdebug.tgz \
+	&& curl -SL "https://xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz" -o xdebug.tgz \
 	&& echo "$XDEBUG_SHA256 xdebug.tgz" | sha256sum -c - \
 	&& mkdir -p /usr/src/xdebug \
 	&& tar -xf xdebug.tgz -C /usr/src/xdebug --strip-components=1 \
@@ -48,8 +48,10 @@ RUN apt-get update && apt-get install -y \
 
 VOLUME /var/www/html
 
-# Copy cusom php.ini which contains debug info
+# Copy custom configs
 COPY ./php.ini /usr/local/etc/php/php.ini
+COPY ./error-logging.ini /usr/local/etc/php/conf.d/error-logging.ini
+COPY ./opcache-recommended.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 

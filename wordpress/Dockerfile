@@ -1,4 +1,4 @@
-FROM wordpress:php7.4-fpm
+FROM wordpress:5.7-php8.0-fpm
 
 # Set timezone
 RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractive tzdata
@@ -6,9 +6,9 @@ RUN echo "Europe/Stockholm" > /etc/timezone && dpkg-reconfigure -f noninteractiv
 # Install unzip
 RUN apt-get update && apt-get install -y unzip
 
-# Install X-Debug for php 7
-ENV XDEBUG_VERSION 3.0.2
-ENV XDEBUG_SHA256 096d46dec061341868d3e3933b977013a592e2e88992b2c0aba7fa52f87c4e17
+# Install X-Debug for php 8
+ENV XDEBUG_VERSION 3.0.4
+ENV XDEBUG_SHA256 b27290491f4634b0cd3badfc3a2be98fb1e3c0c3710a706724d8b195baad72af
 
 RUN set -x \
 	&& curl -SL "https://xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz" -o xdebug.tgz \
@@ -33,8 +33,10 @@ RUN set -x \
 
 VOLUME /var/www/html
 
-# Copy cusom php.ini which contains debug info
+# Copy custom configs
 COPY ./php.ini /usr/local/etc/php/php.ini
+COPY ./error-logging.ini /usr/local/etc/php/conf.d/error-logging.ini
+COPY ./opcache-recommended.ini /usr/local/etc/php/conf.d/opcache-recommended.ini
 
 COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 
